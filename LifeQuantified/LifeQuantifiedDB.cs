@@ -23,7 +23,7 @@ namespace LifeQuantified
         static SQLiteAsyncConnection Database => lazyInitializer.Value;
         static bool initialized = false;
 
-
+ 
         public LifeQuantifiedDB()
         {
             InitializeAsync().SafeFireAndForget(false);
@@ -33,9 +33,9 @@ namespace LifeQuantified
         {
             if (!initialized)
             {
-                if (!Database.TableMappings.Any(m => m.MappedType == typeof(Quantity).Name))
+                if (!Database.TableMappings.Any(m => m.MappedType == typeof(Quantity)))
                 {
-                    await Database.CreateTableAsync(CreateFlags.None, typeof(Quantity)).ConfigureAwait(false);
+                    await Database.CreateTableAsync(typeof(Quantity), CreateFlags.None).ConfigureAwait(false);
                     initialized = true;
                 }
             }
